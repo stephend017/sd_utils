@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 with open("README.md", "r") as file:
@@ -8,9 +8,9 @@ with open("README.md", "r") as file:
 setup(
     name="sd_utils",
     version="0.0.1",
-    description="A python module",
+    description="A python module with basic utils I tend to use in my projects",
     long_description=readme,
-    author="myname",
-    author_email="myemail",
-    packages=["sd_utils"],
+    author="Stephen Davis",
+    author_email="stephenedavis17@gmail.com",
+    packages=find_packages(),
 )
