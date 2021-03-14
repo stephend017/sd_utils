@@ -7,7 +7,7 @@ with open("README.md", "r") as file:
 
 setup(
     name="sd_utils",
-    version="0.0.1",
+    version="0.1.0",
     description="A python module with basic utils I tend to use in my projects",
     long_description=readme,
     long_description_content_type="text/markdown",
