@@ -35,3 +35,4 @@ class MyPlugin(PluginBase):
         """
         self.operations.append("found")
         self.data.append(data)
+        return data

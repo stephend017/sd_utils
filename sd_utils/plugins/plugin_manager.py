@@ -34,7 +34,7 @@ class PluginManager:
     @final
     def run(
         self, name: str, on_search_params: dict = {}, on_find_params: dict = {}
-    ):
+    ) -> Any:
         """
         runs a given plugin.
 
@@ -44,6 +44,10 @@ class PluginManager:
             name (str): the name of the plugin to run
             on_search_params (dict): parameters to pass to
                 the get_on_search_params function
+
+        Returns:
+            Any: The value returned by running the to_find
+                function of the called plugin
         """
 
         to_run = None
@@ -61,7 +65,9 @@ class PluginManager:
         if to_run is None:
             raise ValueError(f"Unable to find plugin with name [{name}]")
 
-        to_run.plugin.on_find(self.get_on_find_params(name, **on_find_params))
+        return to_run.plugin.on_find(
+            self.get_on_find_params(name, **on_find_params)
+        )
 
     def get_on_search_params(self, name: str, **kwargs) -> Any:
         """

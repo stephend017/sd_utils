@@ -24,7 +24,7 @@ class PluginBase:
         """
         raise NotImplementedError
 
-    def on_find(self, data: Any = None):
+    def on_find(self, data: Any = None) -> Any:
         """
         runs when the manager specifically queries this plugin
         """

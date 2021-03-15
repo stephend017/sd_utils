@@ -77,3 +77,17 @@ def test_get_on_find_params():
     assert mydata in mypluginmanager._plugins["myplugin"].plugin.data
 
     mypluginmanager._plugins["myplugin"].plugin.data.clear()
+
+
+def test_on_find_return_value():
+    """
+    Tests that get_on_search params properly takes in
+    the correct arguments
+    """
+
+    mydata = {"data": "value"}
+    response = mypluginmanager.run("myplugin", on_find_params=mydata)
+
+    assert response == mydata
+
+    mypluginmanager._plugins["myplugin"].plugin.data.clear()
