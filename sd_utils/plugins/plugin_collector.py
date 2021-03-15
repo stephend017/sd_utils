@@ -8,7 +8,7 @@ from importlib import import_module
 def collect_plugins(
     registering_file: str,
     registering_file_name: str,
-    cls: ClassVar[PluginBase],
+    cls: ClassVar[PluginBase] = PluginBase,
     exclude_files: List[str] = [],
     assert_one_per_source: bool = True,
 ) -> List[str]:
@@ -20,10 +20,13 @@ def collect_plugins(
         registering_file (str): should be `__file__` of the calling file
         registering_file_name (str): should be `__name__` of the calling file
         cls (ClassVar[PluginBase]): the type of plugin to collect
-        exclude_files (List[str]): any file to exclude from being collected as a plugin
-        assert_one_per_source (bool): asserts that only 1 plugin may be defined in each source file
+        exclude_files (List[str]): any file to exclude from being collected
+            as a plugin
+        assert_one_per_source (bool): asserts that only 1 plugin may be
+            defined in each source file
     Returns:
-        List[str]: a list of all the plugin files collected
+        List[str]: a list of all the plugin files collected. should be
+            stored in the calling files `__all__` variable
     """
     exports = []
 

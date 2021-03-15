@@ -12,8 +12,9 @@ class MyPlugin(PluginBase):
         """
         """
         self.operations = []
+        self.data = []
 
-    def on_register(self):
+    def on_register(self, data: Any = None):
         """
         runs when this plugin is registered with
         the plugin manager
@@ -26,9 +27,12 @@ class MyPlugin(PluginBase):
         any plugin.
         """
         self.operations.append("searched")
+        self.data.append(data)
 
     def on_find(self, data: Any = None):
         """
         runs when the manager specifically queries this plugin
         """
         self.operations.append("found")
+        self.data.append(data)
+        return data
