@@ -11,6 +11,11 @@ class PluginManager:
         """
         decorator for registering a plugin to this instance of a
         plugin manager
+
+        Args:
+            name (str): the name to register this plugin under
+            **kwargs: parameters to be passed to the plugin
+                class when constructed
         """
 
         def decorator(plugin: ClassVar[PluginBase]):
@@ -44,6 +49,8 @@ class PluginManager:
             name (str): the name of the plugin to run
             on_search_params (dict): parameters to pass to
                 the get_on_search_params function
+            on_find_params (dict): parameters to pass to
+                the get_on_find_params functions
 
         Returns:
             Any: The value returned by running the to_find
@@ -73,6 +80,15 @@ class PluginManager:
         """
         function that generates parameters for the on
         search function of a plugin given its name
+
+        Args:
+            name (str): the name of the command to
+                call on_search for
+            **kwargs: any arguments sent from the run
+                function
+
+        Returns:
+            Any: the arguments to be sent to the on_search function
         """
         return kwargs
 
@@ -80,5 +96,14 @@ class PluginManager:
         """
         function that generates parameters for the on
         find function of a plugin given its name
+
+        Args:
+            name (str): the name of the command to
+                call on_find for
+            **kwargs: any arguments sent from the run
+                function
+
+        Returns:
+            Any: the arguments to be sent to the on_find function
         """
         return kwargs
