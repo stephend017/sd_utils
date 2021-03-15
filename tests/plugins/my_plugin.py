@@ -34,3 +34,4 @@ class MyPlugin(PluginBase):
         runs when the manager specifically queries this plugin
         """
         self.operations.append("found")
+        self.data.append(data)

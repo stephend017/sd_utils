@@ -32,7 +32,9 @@ class PluginManager:
         return decorator
 
     @final
-    def run(self, name: str, on_search_params: dict = {}):
+    def run(
+        self, name: str, on_search_params: dict = {}, on_find_params: dict = {}
+    ):
         """
         runs a given plugin.
 
@@ -59,11 +61,18 @@ class PluginManager:
         if to_run is None:
             raise ValueError(f"Unable to find plugin with name [{name}]")
 
-        to_run.plugin.on_find()
+        to_run.plugin.on_find(self.get_on_find_params(name, **on_find_params))
 
     def get_on_search_params(self, name: str, **kwargs) -> Any:
         """
         function that generates parameters for the on
-        search function of a plugin given its
+        search function of a plugin given its name
+        """
+        return kwargs
+
+    def get_on_find_params(self, name: str, **kwargs) -> Any:
+        """
+        function that generates parameters for the on
+        find function of a plugin given its name
         """
         return kwargs
