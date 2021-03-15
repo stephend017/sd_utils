@@ -22,8 +22,7 @@ def test_search_and_find():
     assert "searched" in mypluginmanager._plugins["myplugin"].plugin.operations
     assert "found" in mypluginmanager._plugins["myplugin"].plugin.operations
 
-    mypluginmanager._plugins["myplugin"].plugin.operations.remove("searched")
-    mypluginmanager._plugins["myplugin"].plugin.operations.remove("found")
+    mypluginmanager._plugins["myplugin"].plugin.operations.clear()
 
 
 def test_plugin_doesnt_exist():
@@ -34,7 +33,7 @@ def test_plugin_doesnt_exist():
     with pytest.raises(ValueError):
         mypluginmanager.run("notmyplugin")
 
-    mypluginmanager._plugins["myplugin"].plugin.operations.remove("searched")
+    mypluginmanager._plugins["myplugin"].plugin.operations.clear()
 
 
 def test_search_only():
@@ -49,4 +48,16 @@ def test_search_only():
         "found" not in mypluginmanager._plugins["myplugin"].plugin.operations
     )
 
-    mypluginmanager._plugins["myplugin"].plugin.operations.remove("searched")
+    mypluginmanager._plugins["myplugin"].plugin.operations.clear()
+
+
+def test_get_on_search_params():
+    """
+    Tests that get_on_search params properly takes in
+    the correct arguments
+    """
+
+    mydata = {"data": "value"}
+    mypluginmanager.run("myplugin", mydata)
+
+    assert mydata in mypluginmanager._plugins["myplugin"].plugin.data

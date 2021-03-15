@@ -12,6 +12,7 @@ class MyPlugin(PluginBase):
         """
         """
         self.operations = []
+        self.data = []
 
     def on_register(self):
         """
@@ -26,6 +27,7 @@ class MyPlugin(PluginBase):
         any plugin.
         """
         self.operations.append("searched")
+        self.data.append(data)
 
     def on_find(self, data: Any = None):
         """

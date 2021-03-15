@@ -1,11 +1,12 @@
 from sd_utils.plugins.plugin_base import PluginBase
-from typing import ClassVar
+from typing import Any, ClassVar, final
 
 
 class PluginManager:
     def __init__(self):
         self._plugins = {}
 
+    @final
     def register(self, name: str, **kwargs):
         """
         decorator for registering a plugin to this instance of a
@@ -30,9 +31,17 @@ class PluginManager:
 
         return decorator
 
-    def run(self, name: str):
+    @final
+    def run(self, name: str, on_search_params: dict = {}):
         """
-        runs a given plugin
+        runs a given plugin.
+
+        Note: this function
+
+        Args:
+            name (str): the name of the plugin to run
+            on_search_params (dict): parameters to pass to
+                the get_on_search_params function
         """
 
         to_run = None
@@ -40,7 +49,9 @@ class PluginManager:
             if name == plugin_name:
                 to_run = wrapper
             try:
-                wrapper.plugin.on_search()
+                wrapper.plugin.on_search(
+                    self.get_on_search_params(name, **on_search_params)
+                )
             except NotImplementedError:
                 # just skip if its not implemented
                 pass
@@ -49,3 +60,10 @@ class PluginManager:
             raise ValueError(f"Unable to find plugin with name [{name}]")
 
         to_run.plugin.on_find()
+
+    def get_on_search_params(self, name: str, **kwargs) -> Any:
+        """
+        function that generates parameters for the on
+        search function of a plugin given its
+        """
+        return kwargs
