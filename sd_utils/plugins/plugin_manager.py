@@ -7,7 +7,7 @@ class PluginManager:
         self._plugins = {}
 
     @final
-    def register(self, name: str, **kwargs):
+    def register(self, name: str, on_register_params: dict = {}, **kwargs):
         """
         decorator for registering a plugin to this instance of a
         plugin manager
@@ -30,7 +30,9 @@ class PluginManager:
             w = Wrapper(plugin(**kwargs))
 
             self._plugins[name] = w
-            w.plugin.on_register()
+            w.plugin.on_register(
+                self.get_on_register_params(name, **on_register_params)
+            )
 
             return w
 
@@ -105,5 +107,22 @@ class PluginManager:
 
         Returns:
             Any: the arguments to be sent to the on_find function
+        """
+        return kwargs
+
+    def get_on_register_params(self, name: str, **kwargs) -> Any:
+        """
+        function that generates parameters for the on
+        register function of a plugin given its name
+
+        Args:
+            name (str): the name of the command to
+                call on_register for
+            **kwargs: any arguments sent from the
+                register function
+
+        Returns:
+            Any: the arguments to be sent to the
+                on_register function
         """
         return kwargs

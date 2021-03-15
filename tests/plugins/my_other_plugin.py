@@ -13,7 +13,7 @@ class MyOtherPlugin(PluginBase):
         """
         self.operations = []
 
-    def on_register(self):
+    def on_register(self, data: Any = None):
         """
         runs when this plugin is registered with
         the plugin manager
