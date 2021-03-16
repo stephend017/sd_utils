@@ -30,9 +30,13 @@ class PluginManager:
             w = Wrapper(plugin(**kwargs))
 
             self._plugins[name] = w
-            w.plugin.on_register(
-                self.get_on_register_params(name, **on_register_params)
-            )
+            try:
+                w.plugin.on_register(
+                    self.get_on_register_params(name, **on_register_params)
+                )
+            except NotImplementedError:
+                # dont need to implement this hook
+                pass
 
             return w
 

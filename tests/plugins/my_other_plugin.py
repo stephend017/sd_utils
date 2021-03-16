@@ -13,13 +13,6 @@ class MyOtherPlugin(PluginBase):
         """
         self.operations = []
 
-    def on_register(self, data: Any = None):
-        """
-        runs when this plugin is registered with
-        the plugin manager
-        """
-        self.operations.append("registered")
-
     def on_search(self, data: Any = None):
         """
         runs when the manager begins a query for
