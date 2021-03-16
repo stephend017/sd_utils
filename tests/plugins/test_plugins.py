@@ -91,3 +91,17 @@ def test_on_find_return_value():
     assert response == mydata
 
     mypluginmanager._plugins["myplugin"].plugin.data.clear()
+
+
+def test_iterate_all():
+    """
+    tests that the iterate all function works correctly
+    """
+    mydata = {"data": "value"}
+    mypluginmanager.iterate_all(mydata)
+
+    assert "iterate" in mypluginmanager._plugins["myplugin"].plugin.operations
+    assert mydata in mypluginmanager._plugins["myplugin"].plugin.data
+
+    mypluginmanager._plugins["myplugin"].plugin.data.clear()
+    mypluginmanager._plugins["myplugin"].plugin.operations.clear()

@@ -36,3 +36,7 @@ class MyPlugin(PluginBase):
         self.operations.append("found")
         self.data.append(data)
         return data
+
+    def on_iterate(self, data: Any):
+        self.operations.append("iterate")
+        self.data.append(data)

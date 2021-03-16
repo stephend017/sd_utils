@@ -41,3 +41,13 @@ class PluginBase:
                 plugin from the plugin manager
         """
         raise NotImplementedError
+
+    def on_iterate(self, data: Any = None):
+        """
+        runs when the manager specifically calls iterate_all
+
+        Args:
+            data (Any): any parameters passed to this
+                plugin from the plugin manager
+        """
+        raise NotImplementedError

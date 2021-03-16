@@ -49,7 +49,12 @@ class PluginManager:
         """
         runs a given plugin.
 
-        Note: this function
+        Note: this function iterates over all plugins and will call the
+        on_search for each plugin before executing the on_find hook
+        for the plugin being searched for.
+
+        This function should not be used just to iterate over every plugin.
+        instead the iterate_all function should be used
 
         Args:
             name (str): the name of the plugin to run
@@ -81,6 +86,25 @@ class PluginManager:
         return to_run.plugin.on_find(
             self.get_on_find_params(name, **on_find_params)
         )
+
+    @final
+    def iterate_all(self, on_iterate_params: dict = {}):
+        """
+        Iterates over all the plugins without directly calling
+        one of them. Only hook used is on_iterate
+
+        Args:
+            on_iterate_params (dict): a list of parameters to pass
+                to the on_iterate hook
+        """
+        for name, wrapper in self._plugins.items():
+            try:
+                wrapper.plugin.on_iterate(
+                    self.get_on_iterate_params(name, **on_iterate_params)
+                )
+            except NotImplementedError:
+                # just skip if its not implemented
+                pass
 
     def get_on_search_params(self, name: str, **kwargs) -> Any:
         """
@@ -128,5 +152,22 @@ class PluginManager:
         Returns:
             Any: the arguments to be sent to the
                 on_register function
+        """
+        return kwargs
+
+    def get_on_iterate_params(self, name: str, **kwargs) -> Any:
+        """
+        function that generates parameters for the on
+        iterate_all function of a plugin given its name
+
+        Args:
+            name (str): the name of the command to
+                call iterate_all for
+            **kwargs: any arguments sent from the
+                iterate_all function
+
+        Returns:
+            Any: the arguments to be sent to the
+                iterate_all function
         """
         return kwargs
