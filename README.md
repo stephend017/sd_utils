@@ -1,2 +1,2 @@
 # sd_utils
-A template repository for python packages
+This is a utility module for all of my projects. I like to keep useful code here.
