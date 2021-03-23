@@ -5,9 +5,12 @@ with open("README.md", "r") as file:
     readme = file.read()
 
 
+with open("requirements.txt", "r") as fp:
+    requires = fp.read().splitlines()
+
 setup(
     name="sd_utils",
-    version="0.2.1",
+    version="0.3.0",
     description="A python module with basic utils I tend to use in my projects",
     long_description=readme,
     long_description_content_type="text/markdown",
@@ -20,4 +23,5 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    install_requires=requires,
 )
