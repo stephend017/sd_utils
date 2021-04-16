@@ -1,0 +1,13 @@
+name: Publish Docs
+
+on:
+  push:
+    branches: [ main ] 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: stephend017/pencil-pusher@main
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
