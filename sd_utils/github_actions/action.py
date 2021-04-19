@@ -45,6 +45,10 @@ class GithubAction:
 
     @property
     def inputs(self) -> Dict[str, Any]:
+        """
+        All the inputs defined by the action 
+        file stored as a dictionary
+        """
         return self._inputs
 
     @property
