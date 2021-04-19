@@ -38,6 +38,9 @@ class GithubAction:
 
     @property
     def repo(self) -> str:
+        """
+        The source repo of this github action 
+        """
         return self._repo
 
     @property
