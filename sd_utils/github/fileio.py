@@ -9,6 +9,15 @@ from github.ContentFile import ContentFile
 def get_file(owner: str, repo: str, file_path: str, token: str = "") -> str:
     """
     Gets a file from a repo
+    
+    Args:
+        owner (str): the owner of the repo
+        repo (str): the name of the repo
+        file_path (str): the path of the file relative to 
+            the root of the repo
+        token (str): the github token used to authenticate. 
+            failure to provide one can result in rate limits
+            or no access to a private repo
     """
 
     g = Github() if token == "" else Github(token)
