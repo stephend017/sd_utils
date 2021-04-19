@@ -31,6 +31,9 @@ class GithubAction:
 
     @property
     def owner(self) -> str:
+        """
+        The owner of the github action's source repo
+        """
         return self._owner
 
     @property
