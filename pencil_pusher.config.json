@@ -3,5 +3,6 @@
   "sources":[
     "sd_utils/"
   ],
-  "titles":[]
+  "titles":[],
+  "sidebar": true
 }
