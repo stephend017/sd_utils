@@ -10,7 +10,7 @@ with open("requirements.txt", "r") as fp:
 
 setup(
     name="sd_utils",
-    version="0.3.0",
+    version="0.3.1",
     description="A python module with basic utils I tend to use in my projects",
     long_description=readme,
     long_description_content_type="text/markdown",
