@@ -87,7 +87,7 @@ class GithubAction:
             environ_key = f"GITHUB_{builtin.upper()}"
             if environ_key not in self._working_environ:
                 raise ValueError(
-                    f"Expected builtin [{key}] to be defined. Check that this is the correct name"
+                    f"Expected builtin [{builtin}] to be defined. Check that this is the correct name"
                 )
             self._builtins[builtin] = self._working_environ[environ_key]
 
