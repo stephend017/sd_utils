@@ -4,9 +4,9 @@ from sd_utils.api.request import GET
 from sd_utils.api.client import client_api
 
 
-@client_api("https://jsonplaceholder.typicode.com")
-class Placeholder:
-    todos = GET("/todos")
+@client_api("https://swapi.dev/api")
+class SWAPI:
+    people = GET("/people")
 
     # throws the default error
     fake = GET("/fake")
@@ -30,7 +30,7 @@ def test_api_request_fails():
 
 def test_different_api_request():
     # if this fails then an exception is raised
-    _ = Placeholder.todos("1")
+    _ = SWAPI.people("1/")
 
 
 def test_requests():

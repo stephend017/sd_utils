@@ -4,7 +4,7 @@ from sd_utils.models.field import Field
 
 class Model:
     @staticmethod
-    def __init_method(obj, attrs, *args, **kwargs):
+    def __init_method(obj, attrs: Dict[str, Field], *args, **kwargs):
         # Skimping on the argument-checking because I'm lazy.
         if len(args) > 0:
             raise TypeError("positional arguments not supported yet")
@@ -25,11 +25,11 @@ class Model:
                 print(attr + " " + str(v.default_value))
                 setattr(obj, attr, v.default_value)
 
-    def __init_subclass__(cls, **kwargs) -> None:
+    def __init_subclass__(cls, base_field: Field = Field, **kwargs) -> None:
         super().__init_subclass__()
-        attrs: Dict[str, Field] = {}
+        attrs: Dict[str, base_field] = {}
         for k, v in cls.__dict__.items():
-            if isinstance(v, Field):
+            if isinstance(v, base_field):
                 attrs[k] = v
 
         def __init__(self, *args, **kwargs):
