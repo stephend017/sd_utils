@@ -24,6 +24,7 @@ def collect_plugins(
             as a plugin
         assert_one_per_source (bool): asserts that only 1 plugin may be
             defined in each source file
+            
     Returns:
         List[str]: a list of all the plugin files collected. should be
             stored in the calling files `__all__` variable
