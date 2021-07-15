@@ -1,15 +1,19 @@
+from datetime import datetime, timedelta
+from sd_utils.api.rate_limit import RateLimit
+from sd_utils.api.request import Request
 import pytest
 from examples.api.coinbase import Coinbase
-from sd_utils.api.request import GET
 from sd_utils.api.client import client_api
 
 
 @client_api("https://swapi.dev/api")
 class SWAPI:
-    people = GET("/people")
+    people = Request(
+        "GET", "/people", rate_limits=[RateLimit(20, timedelta(seconds=1))]
+    )
 
     # throws the default error
-    fake = GET("/fake")
+    fake = Request("GET", "/fake")
 
 
 def test_api_request_with_query():
@@ -41,3 +45,12 @@ def test_requests():
 def test_errors():
     errors = Coinbase.errors()
     assert len(errors) == 2
+
+
+def test_rate_limit():
+    start = datetime.now()
+    for _ in range(40):
+        SWAPI.people("1/")
+    end = datetime.now()
+
+    assert end - start >= timedelta(seconds=2)

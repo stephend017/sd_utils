@@ -1,5 +1,9 @@
 from abc import ABC
-from typing import Callable, Optional
+from typing import Any, Callable, Dict, Optional
+
+
+def default_error_func(status_code: int, content: Dict[str, Any]) -> bool:
+    return False
 
 
 class Error(ABC):
@@ -9,29 +13,29 @@ class Error(ABC):
         self,
         code: int,
         message: str,
-        error_func: Optional[Callable[[int, dict], bool]] = None,
+        error_func: Optional[Callable[[int, Dict[str, Any]], bool]] = None,
     ):
         self._code = code
         self._message = message
         self.error_func = (
-            error_func
-            if error_func is not None
-            else lambda status_code, content: status_code == self._code
+            error_func if error_func is not None else default_error_func
         )
 
-    def __set_name__(self, owner, name):
+    def __set_name__(self, owner: Any, name: str):
         self.private_name = Error.SLUG + name
 
-    def __get__(self, obj, objtype=None):
+    def __get__(self, obj: Any, objtype: Any = None):
         return getattr(obj, self.private_name)
 
-    def __set__(self, obj, value):
+    def __set__(self, obj: Any, value: Any):
         setattr(obj, self.private_name, value)
 
-    def _set_api_name(self, name):
-        self._api_name = name
+    def set_api_name(self, name: str):
+        self.api_name = name
 
-    def _is_error(self, status_code: int, content: dict):
+    def is_error(
+        self, status_code: int, content: Dict[str, Any]
+    ) -> Optional[bool]:
         return self.error_func(status_code, content)
 
     @property

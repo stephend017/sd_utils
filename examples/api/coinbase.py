@@ -1,10 +1,10 @@
+from sd_utils.api.request import Request
 from sd_utils.api.error import Error
 import time
 import hmac
 import hashlib
 from requests.auth import AuthBase
 from sd_utils.api.client import client_api
-from sd_utils.api.request import GET
 
 
 class CoinbaseAuth(AuthBase):
@@ -39,15 +39,17 @@ class CoinbaseAuth(AuthBase):
 @client_api("https://api.coinbase.com/v2")
 class Coinbase:
     # endpoints
-    spot_price = GET("prices")
-    time = GET("time")
+    spot_price = Request("GET", "prices")
+    time = Request("GET", "time")
 
     # this specific request fails, to demonstrate
     # error handling in the test suite
     # this is also one way you might provide
     # authentication to an endpoint
-    user = GET(
-        "user", auth=CoinbaseAuth('a "valid" api key', 'a "valid" api secret')
+    user = Request(
+        "GET",
+        "user",
+        auth=CoinbaseAuth('a "valid" api key', 'a "valid" api secret'),
     )
 
     # errors
