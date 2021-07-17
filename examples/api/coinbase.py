@@ -4,7 +4,7 @@ import time
 import hmac
 import hashlib
 from requests.auth import AuthBase
-from sd_utils.api.client import client_api
+from sd_utils.api.client import Client
 
 
 class CoinbaseAuth(AuthBase):
@@ -36,8 +36,8 @@ class CoinbaseAuth(AuthBase):
         return request
 
 
-@client_api("https://api.coinbase.com/v2")
-class Coinbase:
+# @client("https://api.coinbase.com/v2")
+class Coinbase(metaclass=Client("https://api.coinbase.com/v2")):
     # endpoints
     spot_price = Request("GET", "prices")
     time = Request("GET", "time")

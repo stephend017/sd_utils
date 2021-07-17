@@ -3,11 +3,11 @@ from sd_utils.api.rate_limit import RateLimit
 from sd_utils.api.request import Request
 import pytest
 from examples.api.coinbase import Coinbase
-from sd_utils.api.client import client_api
+from sd_utils.api.client import Client
 
 
-@client_api("https://swapi.dev/api")
-class SWAPI:
+# @client("https://swapi.dev/api")
+class SWAPI(metaclass=Client("https://swapi.dev/api")):
     people = Request(
         "GET", "/people", rate_limits=[RateLimit(20, timedelta(seconds=1))]
     )
